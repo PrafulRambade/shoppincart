@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,15 +28,20 @@ use App\Http\Controllers\CategoryController;
 // require __DIR__.'/auth.php';
 
 Route::get('/dashboard',[AdminController::class,'dashboard']);
-Route::get('/products',[AdminController::class,'productsList']);
-Route::get('/addproduct',[CategoryController::class,'addProduct']);
+
+Route::get('/products',[ProductController::class,'productsList'])->name('products.index');
+Route::get('/addproduct',[ProductController::class,'addProduct']);
+Route::post('/saveproduct',[ProductController::class,'saveproduct']);
+Route::get('/edit_product/{id}',[ProductController::class,'edit_product']);
+Route::post('updateProduct',[ProductController::class,'update_product']);
+Route::delete('delete-product/{id}',[ProductController::class,'deleteProduct']);
 
 Route::get('/addcategory',[CategoryController::class,'addCategory']);
 Route::post('/savecategory',[CategoryController::class,'saveCategory']);
 Route::get('/categories',[CategoryController::class,'CategoriesList']);
 Route::get('/edit_category/{id}',[CategoryController::class,'categoryEdit']);
 Route::post('updatecategory',[CategoryController::class,'updatecategory']);
-Route::get('/delete_category/{id}',[CategoryController::class,'categoryDelete']);
+Route::delete('/delete_category/{id}',[CategoryController::class,'categoryDelete']);
 
 
 Route::get('/',[ClientController::class,'index']);
